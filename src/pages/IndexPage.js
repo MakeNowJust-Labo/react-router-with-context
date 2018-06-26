@@ -17,20 +17,14 @@ const IndexPage = ({model}) => {
     return 'Loading...';
   }
 
-  const items = model.state.list
-    .map(id => model.state.cache[id])
-    .map(({id, icon}) => (
-      <li key={id}>
-        <img src={icon} style={{width: '1em', height: '1em'}} />
-        <Link to={`/user/${id}`}>{id}</Link>
-      </li>
-    ));
+  const items = model.state.list.map(id => model.state.cache[id]).map(({id, icon}) => (
+    <li key={id}>
+      <img src={icon} style={{width: '1em', height: '1em'}} />
+      <Link to={`/user/${id}`}>{id}</Link>
+    </li>
+  ));
 
-  return (
-    <ul>
-      {items}
-    </ul>
-  )
+  return <ul>{items}</ul>;
 };
 
 export default connect(IndexPage);

@@ -5,9 +5,7 @@ import axios from 'axios';
 const UsersContext = createContext(null);
 
 export const connect = Component => props => (
-  <UsersContext.Consumer>
-    {model => <Component model={model} {...props} />}
-  </UsersContext.Consumer>
+  <UsersContext.Consumer>{model => <Component model={model} {...props} />}</UsersContext.Consumer>
 );
 
 export class UsersProvider extends Component {
@@ -53,11 +51,7 @@ export class UsersProvider extends Component {
         try {
           this.setState({loading: true});
           const {data: user} = await axios.get(`http://localhost:3000/user/${id}`);
-          const cache = Object.assign(
-            {},
-            this.state.cache,
-            {[user.id]: user},
-          );
+          const cache = Object.assign({}, this.state.cache, {[user.id]: user});
           this.setState({cache});
         } catch (error) {
           this.setState({error});
@@ -67,10 +61,6 @@ export class UsersProvider extends Component {
       },
     };
 
-    return (
-      <UsersContext.Provider value={model}>
-        {this.props.children}
-      </UsersContext.Provider>
-    );
+    return <UsersContext.Provider value={model}>{this.props.children}</UsersContext.Provider>;
   }
 }

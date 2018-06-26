@@ -25,7 +25,7 @@ const IndexPage = ({model, match}) => {
       <h2>{user.id}</h2>
       <img src={user.icon} />
     </div>
-  )
+  );
 };
 
 export default connect(IndexPage);

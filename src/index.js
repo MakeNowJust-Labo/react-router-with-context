@@ -14,7 +14,9 @@ ReactDOM.render(
   <UsersProvider>
     <BrowserRouter>
       <div>
-        <h1><Link to="/">React Router with Context API</Link></h1>
+        <h1>
+          <Link to="/">React Router with Context API</Link>
+        </h1>
 
         <Switch>
           <Route exact path="/" component={IndexPage} />
