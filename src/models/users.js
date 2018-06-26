@@ -2,10 +2,19 @@ import React, {Component, createContext} from 'react';
 
 import axios from 'axios';
 
-const UsersContext = createContext(null);
+const UsersContext = createContext({
+  state: {
+    loading: false,
+    error: null,
+    cache: {},
+    list: null,
+  },
+  loadAll: () => undefined,
+  load: () => undefined,
+});
 
-export const connect = Component => props => (
-  <UsersContext.Consumer>{model => <Component model={model} {...props} />}</UsersContext.Consumer>
+export const withUsers = Component => props => (
+  <UsersContext.Consumer>{users => <Component users={users} {...props} />}</UsersContext.Consumer>
 );
 
 export class UsersProvider extends Component {
@@ -21,7 +30,7 @@ export class UsersProvider extends Component {
 
   render() {
     const state = this.state;
-    const model = {
+    const users = {
       state,
       loadAll: async () => {
         if (state.list || state.loading) {
@@ -61,6 +70,6 @@ export class UsersProvider extends Component {
       },
     };
 
-    return <UsersContext.Provider value={model}>{this.props.children}</UsersContext.Provider>;
+    return <UsersContext.Provider value={users}>{this.props.children}</UsersContext.Provider>;
   }
 }

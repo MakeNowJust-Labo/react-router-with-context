@@ -1,23 +1,23 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {connect} from '../models/users';
+import {withUsers} from '../models/users';
 
-const IndexPage = ({model}) => {
-  if (model.state.loading) {
+const IndexPage = ({users}) => {
+  if (users.state.loading) {
     return 'Loading...';
   }
 
-  if (model.state.error) {
-    return `Error: ${model.state.error.message}`;
+  if (users.state.error) {
+    return `Error: ${users.state.error.message}`;
   }
 
-  if (!model.state.list) {
-    model.loadAll();
+  if (!users.state.list) {
+    users.loadAll();
     return 'Loading...';
   }
 
-  const items = model.state.list.map(id => model.state.cache[id]).map(({id, icon}) => (
+  const items = users.state.list.map(id => users.state.cache[id]).map(({id, icon}) => (
     <li key={id}>
       <img src={icon} style={{width: '1em', height: '1em'}} />
       <Link to={`/user/${id}`}>{id}</Link>
@@ -27,4 +27,4 @@ const IndexPage = ({model}) => {
   return <ul>{items}</ul>;
 };
 
-export default connect(IndexPage);
+export default withUsers(IndexPage);

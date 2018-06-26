@@ -1,24 +1,24 @@
 import React from 'react';
 
-import {connect} from '../models/users';
+import {withUsers} from '../models/users';
 
-const IndexPage = ({model, match}) => {
+const UserPage = ({users, match}) => {
   const id = match.params.id;
 
-  if (model.state.loading) {
+  if (users.state.loading) {
     return 'Loading...';
   }
 
-  if (model.state.error) {
-    return `Error: ${model.state.error.message}`;
+  if (users.state.error) {
+    return `Error: ${users.state.error.message}`;
   }
 
-  if (!model.state.cache[id]) {
-    model.load(id);
+  if (!users.state.cache[id]) {
+    users.load(id);
     return 'Loading...';
   }
 
-  const user = model.state.cache[id];
+  const user = users.state.cache[id];
 
   return (
     <div>
@@ -28,4 +28,4 @@ const IndexPage = ({model, match}) => {
   );
 };
 
-export default connect(IndexPage);
+export default withUsers(UserPage);
