@@ -11,8 +11,8 @@ import UserPage from './pages/UserPage';
 import {UsersProvider} from './models/users';
 
 ReactDOM.render(
-  <UsersProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <UsersProvider>
       <div>
         <h1>
           <Link to="/">React Router with Context API</Link>
@@ -23,7 +23,7 @@ ReactDOM.render(
           <Route exact path="/user/:id" component={UserPage} />
         </Switch>
       </div>
-    </BrowserRouter>
-  </UsersProvider>,
+    </UsersProvider>
+  </BrowserRouter>,
   document.querySelector('#app'),
 );
