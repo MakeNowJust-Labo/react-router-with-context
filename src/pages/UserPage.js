@@ -1,10 +1,9 @@
 import React from 'react';
 
 import {withUsers} from '../models/users';
+import UserEditor from '../components/UserEditor';
 
-const UserPage = ({users, match}) => {
-  const id = match.params.id;
-
+const UserPage = ({users, match: {params: {id}}}) => {
   if (users.state.loading) {
     return 'Loading...';
   }
@@ -24,6 +23,7 @@ const UserPage = ({users, match}) => {
     <div>
       <h2>{user.id}</h2>
       <img src={user.icon} />
+      <UserEditor {...user} onUpdate={icon => users.update(user.id, icon)} />
     </div>
   );
 };
